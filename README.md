@@ -1,16 +1,17 @@
-# Telco-Customer-Churn-Analysis
-
+# Telco Customer Churn Analysis
 
 ![Python](https://img.shields.io/badge/Python-pandas%20%7C%20scipy%20%7C%20matplotlib-3776AB)
 ![SQL](https://img.shields.io/badge/SQL-SQLite-003B57)
 ![Excel](https://img.shields.io/badge/Excel-formula--driven-217346)
-![Dashboard](https://img.shields.io/badge/Dashboard-HTML%20%2B%20Chart.js-orange)
+![Power BI](https://img.shields.io/badge/Power%20BI-DAX%20guide-F2C811)
 
-An end-to-end churn analysis of **7,043 telecom customers**: data cleaning, exploratory analysis, statistical significance testing, and delivery across Python, SQL, Excel, and an interactive dashboard.
+An end-to-end churn analysis of **7,043 telecom customers**: data cleaning, exploratory analysis, statistical significance testing, and delivery across Python, SQL, Excel, and Power BI.
+
+
 
 ## Business Question
 
-Which customers are leaving, why, and how much recurring revenue is at risk, answered in a form that analysts, engineers, and executives can each use.
+Which customers are leaving, why, and how much recurring revenue is at risk, answered in a form that analysts, engineers, and business users can each use.
 
 ## Key Results
 
@@ -28,7 +29,7 @@ Which customers are leaving, why, and how much recurring revenue is at risk, ans
 - Churn concentrates in the first 12 months of tenure (0-6 months: 52.9%).
 - Fiber-optic customers churn far more than DSL customers despite paying more.
 - Electronic-check payers churn at roughly double the rate of autopay customers.
-- More add-on services (security, backup, tech support) is associated with lower churn.
+- Among customers with internet add-ons, churn falls as add-ons increase (45.8% with 1 add-on down to 5.3% with 6). Customers with 0 add-ons churn at only 21.4% because that group includes many phone-only customers.
 - Every driver above is significant at **p < 0.0001** (chi-square for categorical variables, Welch's t-test for numeric ones).
 
 ## Project Structure
@@ -44,12 +45,11 @@ Which customers are leaving, why, and how much recurring revenue is at risk, ans
 │   └── telco_churn_analysis.sql    11 annotated queries
 ├── excel/
 │   └── Telco_Churn_Analysis.xlsx   KPI summary, churn breakdowns, native charts
-├── dashboard/
-│   ├── Telco_Churn_Dashboard.html  Interactive dashboard with working segment filter
-│   └── Portfolio_Case_Study.html   One-page case study
 ├── report/
 │   ├── Telco_Churn_Report.docx     Full written report
 │   └── Interview_Cheat_Sheet.docx  One-page talking points
+├── images/
+│   └── dashboard.png               Dashboard preview image
 ├── figs/                           8 chart PNGs
 ├── requirements.txt
 └── LICENSE
@@ -72,7 +72,7 @@ The script expects the raw CSV as `raw.csv` in the folder you run it from. Copy 
 sqlite3 data/processed/telco.db < sql/telco_churn_analysis.sql
 ```
 
-**Open the dashboard**: double-click `dashboard/Telco_Churn_Dashboard.html`. No server needed. Use the **Focus** dropdown to switch between all customers, month-to-month only, and fiber-optic only; KPIs, charts, and the retention list all update.
+**Build the Power BI report**: import `data/processed/telco_cleaned.csv` into Power BI Desktop and follow the DAX measures and visual layout in Section 6 of `report/Telco_Churn_Report.docx`.
 
 ## Methodology
 
@@ -81,7 +81,7 @@ sqlite3 data/processed/telco.db < sql/telco_churn_analysis.sql
 3. **Feature engineering**: `TenureGroup`, `NumAddOns`, `MonthlyChargeBucket`, `ChurnFlag`.
 4. **Statistical testing**: chi-square tests (categorical) and Welch's t-tests (numeric), used because churned and retained groups have unequal variance.
 5. **Visualization**: bar charts for category comparison, histogram for distribution shape, box plot for spread, heatmap for correlations. Pie, 3D, and dual-axis charts were deliberately avoided.
-6. **Delivery**: one deliverable per audience (Python, SQL, Excel, dashboard).
+6. **Delivery**: one deliverable per audience (Python, SQL, Excel, Power BI).
 
 ## Tools
 
@@ -90,7 +90,6 @@ sqlite3 data/processed/telco.db < sql/telco_churn_analysis.sql
 | Python (pandas, scipy, matplotlib, seaborn) | Cleaning, hypothesis tests, charts |
 | SQL (SQLite; portable to Postgres, Snowflake, BigQuery) | KPIs, cohorts, window functions |
 | Excel (openpyxl) | Live-formula summary workbook |
-| HTML / Chart.js | Interactive dashboard |
 | Power BI | Setup guide and DAX measures in the report (Section 6); import `data/processed/telco_cleaned.csv` |
 
 ## Recommendations
@@ -99,7 +98,7 @@ sqlite3 data/processed/telco.db < sql/telco_churn_analysis.sql
 2. Add proactive onboarding and outreach during months 0-12.
 3. Investigate fiber-optic service quality and price perception.
 4. Run an autopay migration campaign for electronic-check payers.
-5. Bundle security and tech-support add-ons into entry plans.
+5. Bundle security and tech-support add-ons into entry plans, since churn drops sharply for customers who take several add-ons.
 
 ## Data Source
 
